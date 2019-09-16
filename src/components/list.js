@@ -1,40 +1,49 @@
 import React from 'react';
 import {connect} from "react-redux";
-// import {getBooks} from '../actions/actions';
+import {editBook} from '../actions/actions';
 import Modelbook from './modelbook';
+import Form from "./form";
 
 
+class List extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render() {
+        return <div style={{background: "white", color: 'brown', fontWeith: 'bolder', fontSize: '20px' }}>
+            Book List:
+            <ul>{this.props.books.map(book => {
 
-const List = props => {
+                return (<li key={book.id}>
+                        <Modelbook {...book} />
+                        {/*<button onClick={<Form book={this.props.book}*/}
+                        {/*    onEditBook={this.props.onEditBook(book)}/>}>EDIT</button>*/}
 
-// this.props.onGetItem();
-    return <div style={{color: 'brown', fontWeith: 'bolder', fontSize: '20px' }}>
-        Book List:
-
-        <ul>{props.books.map(book => {
-            console.log(book.title);
-            return (<li key={book.id}>
-                    <Modelbook {...book} /></li>
-            )
-        })}
-        </ul>
-    </div>
-
-};
-let mapStateToProps=(state) => {
+                    </li>
+                )
+            })}
+            </ul>
+        </div>
+    }
+}
+let mapStateToProps=(state,props) => {
     return {
-        books: state.getbook
+        books: state.getbook,
+        // book: state.getbook.find((book) =>
+        //     book.id === props.match.params.id)
+
     }
 };
-// let dispatchMapToProps=(dispatch)=>{
-//     return {
-//
-//         onGetItem: () => {dispatch(getBooks())}
-//
-//     }
-// };
+let mapDispatchToProps=(dispatch)=> {
+    return {
+        // onEditBook: (book) => {
+        //     dispatch(editBook(book.id, book))
+        // }
+    };
+};
 export default connect(
-    mapStateToProps,
-    // dispatchMapToProps
-) (List);
+        mapStateToProps,
+        mapDispatchToProps
+    )(List);
+
 
