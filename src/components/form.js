@@ -6,14 +6,22 @@ import {addbook, getBooks} from '../actions/actions';
 class Form extends React.Component {
     constructor(props){
         super (props);
-
+// console.log("!!"+props.book.id);
         this.onTitleChange = this.onTitleChange.bind(this);
 
         this.state = {
             id: props.book? props.book.id:'',
             title: props.book ? props.book.title : '',
         };
+
     }
+    // editbook(){
+    //     this.props.onEditBook(
+    //         {
+    //             id: this.state.id,
+    //             title: this.state.title
+    //         })
+    // }
 
     addbook(e){
         e.preventDefault();
@@ -29,6 +37,7 @@ class Form extends React.Component {
     onTitleChange(e) {
         const title = e.target.value;
         this.setState(() => ({ title: title }));
+        console.log(title)
     }
     render() {
 

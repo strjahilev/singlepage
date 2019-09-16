@@ -1,6 +1,6 @@
 import React from 'react';
 import { removeBook } from '../actions/actions';
-
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 function f(id,title) {
@@ -9,11 +9,11 @@ function f(id,title) {
 const Modelbook = ({ id, title, dispatch}) => (
 
     <div >
-         <p key={id} onClick={
-             ()=>f(id, title)
-         }>
+        <Link to={`/book/${id}`} activestyle={{color:"red"}} >
+         <p key={id} >
              {title}
          </p>
+        </Link>
         <button onClick={() => {
             dispatch(removeBook({ id }));
         }}>Delete</button>

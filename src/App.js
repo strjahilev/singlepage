@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Header from './components/header';
+import {editBook} from "./actions/actions";
 import List from './components/list';
 // import { Router, Route, history, hashHistory } from 'react-router';
 
@@ -9,14 +9,13 @@ import './App.css';
 
 
 
-class App extends React.Component {
+const App = (props) => (
 
 
-
-  render() {
-    return (
         <div className="App">
-            <Header/>
+            <Form
+                book={props.book}
+                onEditBook={props.onEditBook}/>
 
             {/*<Router history={history}>*/}
             {/*    <Route path="/" component={Form}/>*/}
@@ -26,7 +25,22 @@ class App extends React.Component {
 
         </div>
     );
-  }
-}
 
-export default connect()(App);
+const mapStateToProps = (state, props) => {
+    return {
+        book: state.getbook.find((book) =>
+            book.id === props.match.params.id)
+    };
+};
+const dispatchMapToProps = (dispatch)=> {
+    return {
+        onEditBook: (book) => {
+            dispatch(editBook(book.id, book))
+        }
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    dispatchMapToProps
+) (App);
